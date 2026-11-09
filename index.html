@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CicloDev</title>
-<link rel="icon" href="logos/it.svg" type="image/svg+xml">
+<link rel="icon" href="ciclodev-logo-final-1024.png" type="image/png">
 </head>
 <body>
 <script>document.documentElement.dataset.tema = 'claro'; document.documentElement.dataset.empresa = 'nevoa'; document.documentElement.lang = 'pt-BR';</script>
@@ -98,7 +98,7 @@ html, body { margin: 0; min-height: 100vh; background: var(--fundo); }
 
 <div class="pg">
   <aside class="mn mn-A" id="menu-lateral" aria-label="Menu">
-    <div class="mn-topo"><img class="mn-logo" data-forma="logo" alt="Logo IT" height="26"><span class="mn-sep" aria-hidden="true"></span><span class="mn-crm">CRM</span></div>
+    <div class="mn-topo"><img class="mn-logo" data-forma="logo" alt="Logo CicloDev" height="26"><span class="mn-sep" aria-hidden="true"></span><span class="mn-crm">CRM</span></div>
     <button class="mn-recolher" type="button" aria-label="Recolher menu" aria-expanded="true"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#chevron-left"/></svg></button>
     <p class="mn-secao">Operação</p>
     <nav class="mn-nav" aria-label="Principal">
@@ -121,7 +121,7 @@ function iniciarMenu() {
   var html = document.documentElement, mn = document.getElementById("menu-lateral");
   function logo() {
     var img = mn.querySelector('.mn-logo'), esc = html.dataset.tema === 'escuro';
-    img.src = 'logos/it.svg';   /* logo IT: fundo vermelho #FF0000, placa preta #000000, letras brancas #FFFFFF, ponto vermelho */
+    img.src = 'ciclodev-logo-final-1024.png';   /* logo oficial do CicloDev (arquivo na raiz do repositório) */
   }
   if (window.matchMedia('(max-width: 767px)').matches) recolher();
   function recolher() {
