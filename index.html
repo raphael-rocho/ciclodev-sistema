@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CicloDev</title>
+<link rel="icon" href="logos/it.svg" type="image/svg+xml">
+</head>
+<body>
+<script>document.documentElement.dataset.tema = 'claro'; document.documentElement.dataset.empresa = 'nevoa'; document.documentElement.lang = 'pt-BR';</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="base/tokens.css">
+<link rel="stylesheet" href="base/componentes.css">
+<link rel="stylesheet" href="base/menu.css">
+<script src="base/icones.js"></script>
+<style>
+/* Página: só o menu lateral da aba 6 Casca, sobre fundo das cores do CicloDev (tokens.css) */
+html, body { margin: 0; min-height: 100vh; background: var(--fundo); }
+.pg { display: flex; gap: var(--s-16); min-height: 100vh; padding: var(--s-12); box-sizing: border-box; }
+.pg > .mn { position: sticky; top: var(--s-12); height: calc(100vh - 2 * var(--s-12)); }
+.pg-area { flex: 1; min-width: 0; }
+
+/* ===== Operações (prévia com dados fictícios) · peças do pacote: .card, .cs-migalha; cores só pelos tokens ===== */
+.op { display: flex; flex-direction: column; gap: var(--s-24); padding: var(--s-16) var(--s-12); max-width: 1180px; }
+.op-cab { display: grid; gap: var(--s-8); }
+.op-cab h1 { font-size: var(--app-t-titulo); outline: none; }
+.op-cab p { margin: 0; color: var(--fraco); }
+.op-aviso { margin: 0; font-size: var(--app-t-rotulo); color: var(--fraco); }
+.cs-migalha { margin: 0; }
+.cs-migalha button { padding: 0; border: 0; background: none; font: inherit; color: var(--acento-texto); cursor: pointer; }
+.op-grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--s-16); }
+.op-caixa { display: flex; flex-direction: column; align-items: flex-start; gap: var(--s-12); min-height: 160px; padding: var(--s-24); border: 0; text-align: left; font: inherit; color: var(--texto); cursor: pointer; }
+.op-caixa:hover { box-shadow: 0 0 0 2px var(--acento); }
+.op-caixa h2 { font-size: var(--app-t-secao); }
+.op-caixa p { margin: 0; color: var(--fraco); font-size: var(--t-14); }
+.op-caixa .op-ir { margin-top: auto; display: inline-flex; align-items: center; gap: var(--s-8); font-weight: 600; color: var(--acento-texto); }
+.op-ico { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 14px; background: var(--acento); color: var(--no-acento); }
+.op-ico .ico { width: 22px; height: 22px; }
+.op-id { font-size: var(--app-t-rotulo); color: var(--fraco); font-variant-numeric: tabular-nums; }
+.op-num { font-size: var(--t-25); font-weight: 600; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+/* Projeto escolhido + quadro de fases */
+.op-projeto { display: grid; gap: var(--s-8); padding: var(--s-24); }
+.op-projeto h2 { font-size: var(--app-t-secao); }
+.op-projeto p { margin: 0; }
+.op-fases { width: 100%; border-collapse: separate; border-spacing: 0; table-layout: fixed; border-radius: var(--raio-c); background: var(--sup); box-shadow: var(--sombra); }
+.op-fases th { padding: var(--s-12) var(--s-16); text-align: left; font-size: var(--app-t-rotulo); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fraco); border-bottom: 1px solid var(--linha); border-right: 1px solid var(--linha); }
+.op-fases th b { margin-left: var(--s-8); color: var(--acento-texto); }
+.op-fases td { padding: var(--s-12) var(--s-16); vertical-align: top; border-right: 1px solid var(--linha); }
+.op-fases td:last-child, .op-fases th:last-child { border-right: 0; }
+.op-fases ul { display: grid; gap: var(--s-12); margin: 0; padding: 0; list-style: none; }
+.op-fases li { display: grid; gap: 2px; padding-bottom: var(--s-12); border-bottom: 1px solid var(--linha); font-size: var(--t-14); }
+.op-fases li:last-child { border-bottom: 0; padding-bottom: 0; }
+.op-fases li b { font-weight: 600; }
+.op-fases li span, .op-nada { color: var(--fraco); }
+.op-nada { font-size: var(--app-t-rotulo); }
+/* Backlog */
+.op-backlog { display: grid; gap: var(--s-8); padding: var(--s-24); align-content: start; }
+.op-backlog h2 { font-size: var(--app-t-secao); }
+.op-backlog p { margin: 0; line-height: var(--texto-entrelinha); }
+/* Custos */
+.op-custo { display: grid; gap: var(--s-12); padding: var(--s-24); align-content: start; }
+.op-custo h2 { font-size: var(--app-t-secao); }
+.op-custo ul { display: grid; gap: var(--s-8); margin: 0; padding: var(--s-12) 0 0; list-style: none; border-top: 1px solid var(--linha); }
+.op-custo li { display: grid; grid-template-columns: 1fr auto; gap: 2px var(--s-12); font-size: var(--t-14); }
+.op-custo li span { color: var(--fraco); font-size: var(--app-t-rotulo); }
+.op-custo li b { grid-row: span 2; align-self: center; font-weight: 600; font-variant-numeric: tabular-nums; }
+.op-total { display: flex; justify-content: space-between; align-items: baseline; padding-top: var(--s-12); border-top: 1px solid var(--linha); }
+@media (max-width: 767px) { .op { padding: var(--s-8) 0; } .op-fases-rolar { overflow-x: auto; } .op-fases { min-width: 640px; } }
+.op-topo { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-16); }
+.op-voltar .ico, .op-atualizar .ico { width: 16px; height: 16px; }
+.op-vazio { display: flex; flex-direction: column; align-items: center; gap: var(--s-12); padding: var(--s-32) var(--s-24); text-align: center; }
+.op-vazio h2 { font-size: var(--app-t-secao); }
+.op-vazio p { margin: 0; max-width: 46ch; color: var(--fraco); }
+.op-erro { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s-12); padding: var(--s-16) var(--s-24); }
+.op-erro p { margin: 0; max-width: 70ch; }
+.cf-alerta { display: inline-flex; align-items: center; gap: var(--s-8); font-size: var(--t-14); font-weight: 600; color: var(--acento-texto); }
+.cf-alerta .ico, .cf-tipo .ico, .cf-validade .ico, .cf-segredo .ico { width: 16px; height: 16px; flex: none; }
+.cf-grade { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+.cf-item { display: grid; gap: var(--s-12); padding: var(--s-24); align-content: start; }
+.cf-item h2 { font-size: var(--app-t-secao); }
+.cf-item.cf-vencido { box-shadow: 0 0 0 2px var(--acento); }
+.cf-item-topo { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s-8); }
+.cf-tipo { display: inline-flex; align-items: center; gap: 6px; font-size: var(--app-t-rotulo); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+.cf-validade { display: inline-flex; align-items: center; gap: 6px; padding: 2px 8px; border-radius: 6px; font-size: var(--app-t-rotulo); font-weight: 600; }
+.cf-validade.cf-n0 { padding: 2px 0; font-weight: 400; color: var(--fraco); }
+.cf-validade.cf-n1 { box-shadow: inset 0 0 0 1px var(--acento); color: var(--acento-texto); }
+.cf-validade.cf-n2 { background: var(--acento); color: var(--no-acento); }
+.cf-dados { display: grid; grid-template-columns: auto 1fr; gap: var(--s-8) var(--s-16); margin: 0; padding-top: var(--s-12); border-top: 1px solid var(--linha); font-size: var(--t-14); }
+.cf-dados dt { color: var(--fraco); }
+.cf-dados dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.cf-segredo { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.cf-segredo span { letter-spacing: 0.12em; }
+.cf-segredo small { color: var(--fraco); font-size: var(--app-t-rotulo); }
+.op-status { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-12); }
+</style>
+
+<div class="pg">
+  <aside class="mn mn-A" id="menu-lateral" aria-label="Menu">
+    <div class="mn-topo"><img class="mn-logo" data-forma="logo" alt="Logo IT" height="26"><span class="mn-sep" aria-hidden="true"></span><span class="mn-crm">CRM</span></div>
+    <button class="mn-recolher" type="button" aria-label="Recolher menu" aria-expanded="true"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#chevron-left"/></svg></button>
+    <p class="mn-secao">Operação</p>
+    <nav class="mn-nav" aria-label="Principal">
+      <a class="mn-item" href="#" title="Visão Geral" aria-current="page"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#layout-dashboard"/></svg><span class="mn-rotulo">Visão Geral</span></a>
+      <a class="mn-item" href="#" title="Operações"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#settings"/></svg><span class="mn-rotulo">Operações</span></a>
+      <a class="mn-item" href="#" title="Cofre"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#lock"/></svg><span class="mn-rotulo">Cofre</span></a>
+      <a class="mn-item" href="#" title="CRM"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#users"/></svg><span class="mn-rotulo">CRM</span></a>
+    </nav>
+    <div class="mn-pe">
+      <label class="interruptor mn-modo"><input type="checkbox" role="switch" aria-label="Modo escuro"><span class="interruptor-trilho"></span><span class="mn-rotulo">Modo escuro</span></label>
+      <p class="mn-rodape">Grupo You · uso interno</p>
+    </div>
+  </aside>
+  <main class="pg-area" id="area" aria-label="Conteúdo"></main>
+</div>
+
+<script>
+// Comportamento do menu da aba 6 Casca: recolher/abrir, item escolhido, modo escuro e logo da You
+function iniciarMenu() {
+  var html = document.documentElement, mn = document.getElementById("menu-lateral");
+  function logo() {
+    var img = mn.querySelector('.mn-logo'), esc = html.dataset.tema === 'escuro';
+    img.src = 'logos/it.svg';   /* logo IT: fundo vermelho #FF0000, placa preta #000000, letras brancas #FFFFFF, ponto vermelho */
+  }
+  if (window.matchMedia('(max-width: 767px)').matches) recolher();
+  function recolher() {
+    var rec = mn.classList.toggle('mn-rec'), b = mn.querySelector('.mn-recolher');
+    b.setAttribute('aria-expanded', String(!rec)); b.setAttribute('aria-label', rec ? 'Abrir menu' : 'Recolher menu');
+    mn.querySelector('.mn-logo').dataset.forma = rec ? 'icone' : 'logo'; logo();
+  }
+  mn.addEventListener('click', function (e) {
+    if (e.target.closest('.mn-recolher')) return recolher();
+    var it = e.target.closest('.mn-nav .mn-item'); if (!it) return;
+    e.preventDefault();
+    mn.querySelectorAll('.mn-nav .mn-item').forEach(function (x) { x.removeAttribute('aria-current'); });
+    it.setAttribute('aria-current', 'page');
+    abrirModulo(it.title);
+  });
+  mn.querySelector('.mn-modo input').addEventListener('change', function (e) { html.dataset.tema = e.target.checked ? 'escuro' : 'claro'; logo(); });
+  logo();
+}
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciarMenu); else iniciarMenu();
+
+// ===== Operações: dados lidos DIRETO do banco Supabase (projeto knxxzulpsxiyooawnlku) =====
+// Nada é gravado. Tabelas: projetos (fase 'producao' = Ativo | 'backlog'), frentes_trabalho + tipos_frente, custos.
+var ETAPAS = ['to do', 'progress', 'review', 'done'];
+var MODULO = null;            // módulo aberto no menu
+var OP = null;                 // dados do banco depois de lidos
+var OP_ESTADO = 'parado';      // parado | carregando | ok | erro
+var OP_ERRO = null, OP_LIDO_EM = null, OP_TELA = ['inicio'];
+
+function opIc(n) { return '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#' + n + '"/></svg>'; }
+function opEsc(t) { return String(t == null ? '' : t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+function opDinheiro(v) { return Number(v).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }); }
+function opData(d) { var p = String(d).slice(0, 10).split('-'); return p.length === 3 ? p[2] + '/' + p[1] + '/' + p[0] : opEsc(d); }
+function opIdCurto(id) { return 'ID ' + String(id).slice(0, 8); }
+function opProjeto(id) { return (OP ? OP.projetos : []).filter(function (p) { return p.id === id; })[0]; }
+
+// Leitura direta pela API do Supabase com a CHAVE PÚBLICA (publishable). Só leitura: o banco libera ao público
+// apenas SELECT em colunas de projetos, frentes_trabalho, tipos_frente e custos (migration leitura_publica_operacoes).
+var SB_URL = 'https://knxxzulpsxiyooawnlku.supabase.co/rest/v1/';
+var SB_CHAVE = 'sb_publishable_NkKy8c-SIJlwsdnfzStzag_fGGHgKiU';
+function sbGet(caminho) {
+  return fetch(SB_URL + caminho, { headers: { apikey: SB_CHAVE }, cache: 'no-store' }).then(function (r) {
+    if (!r.ok) return r.text().then(function (t) { throw { code: 'http_' + r.status, message: t.slice(0, 300) }; });
+    return r.json();
+  }, function (e) { throw { code: 'rede', message: String(e && e.message || e) }; });
+}
+function sbLer() {
+  OP_ESTADO = 'carregando'; OP_ERRO = null; desenhar();
+  Promise.all([
+    sbGet('projetos?select=id,nome,descricao,fase,created_at&order=created_at'),
+    sbGet('frentes_trabalho?select=projeto_id,tipo_frente_id,etapa,descricao'),
+    sbGet('tipos_frente?select=id,nome,ordem&order=ordem'),
+    sbGet('custos?select=projeto_id,descricao,valor,data_custo&order=data_custo')
+  ]).then(function (r) {
+    var tipos = {}; r[2].forEach(function (t) { tipos[t.id] = t; });
+    var frentes = r[1].map(function (f) { var t = tipos[f.tipo_frente_id] || {}; return { projeto_id: f.projeto_id, tipo: t.nome || 'Frente', ordem: t.ordem || 99, etapa: f.etapa, descricao: f.descricao }; })
+      .sort(function (a, b) { return a.ordem - b.ordem; });
+    OP = { projetos: r[0], frentes: frentes, custos: r[3] };
+    OP_LIDO_EM = Date.now(); OP_ESTADO = 'ok'; desenhar();
+  }).catch(function (e) {
+    OP_ESTADO = 'erro'; OP_ERRO = e && e.code ? e : { code: 'leitura', message: String(e && e.message || e) };
+    desenhar();
+  });
+}
+
+// migalha + botão Voltar
+function opMigalha(passos, attr) {
+  attr = attr || 'data-op';
+  return '<ol class="cs-migalha">' + passos.map(function (p, i) {
+    var ult = i === passos.length - 1;
+    return '<li>' + (i ? opIc('chevron-right') : '') + (ult ? '<span aria-current="page">' + opEsc(p[0]) + '</span>' : '<button type="button" ' + attr + '="' + p[1] + '">' + opEsc(p[0]) + '</button>') + '</li>';
+  }).join('') + '</ol>';
+}
+function opCab(passos, titulo, texto, attr) {
+  attr = attr || 'data-op';
+  var ant = passos.length > 1 ? passos[passos.length - 2] : null;
+  var voltar = ant ? '<button class="btn btn-2 op-voltar" type="button" ' + attr + '="' + ant[1] + '">' + opIc('chevron-left') + 'Voltar para ' + opEsc(ant[0]) + '</button>' : '';
+  return '<div class="op-topo">' + voltar + opMigalha(passos, attr) + '</div><header class="op-cab"><h1>' + opEsc(titulo) + '</h1>' + (texto ? '<p>' + texto + '</p>' : '') + '</header>';
+}
+function opVazio(ico, titulo, texto) {
+  return '<div class="card op-vazio"><span class="op-ico">' + opIc(ico) + '</span><h2>' + titulo + '</h2><p>' + texto + '</p></div>';
+}
+// estado da leitura do banco (carregando, erro, ou hora da última leitura + Atualizar)
+function opStatus() {
+  if (OP_ESTADO === 'carregando') return '<p class="op-aviso" role="status">Lendo o banco Supabase…</p>';
+  if (OP_ESTADO === 'erro') return opStatusErro();
+  if (OP_ESTADO === 'ok') return '<div class="op-status"><span class="op-aviso">Dados do banco Supabase · lidos às ' + new Date(OP_LIDO_EM).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) + '</span><button class="btn btn-2 op-atualizar" type="button" data-sb="atualizar">' + opIc('refresh-cw') + 'Atualizar</button></div>';
+  return '';
+}
+function opStatusErro() {
+  {
+    var c = OP_ERRO.code, msg = {
+      sem_mcp: 'Esta visualização não consegue usar conectores. Abra a página no claude.ai.',
+      server_not_connected: 'O conector Supabase não está ligado na sua conta. Ligue em claude.ai → Configurações → Conectores e abra a página de novo.',
+      needs_reauth: 'O login do conector Supabase expirou. Reconecte em claude.ai → Configurações → Conectores.',
+      selection_required: 'Há mais de um conector Supabase na sua conta. Escolha qual usar no aviso do claude.ai.',
+      not_in_manifest: 'Esta página não tem permissão para usar o conector Supabase. Libere no menu de permissões da página.',
+      approval_required: 'A leitura do banco precisa da sua aprovação.',
+      blocked_by_policy: 'A organização bloqueou o uso do conector Supabase para você.',
+      server_unavailable: 'O Supabase não respondeu agora. Tente de novo em instantes.',
+      tool_error: 'O banco recusou a consulta: ' + opEsc(OP_ERRO.message || ''),
+      consent_required: 'O uso do conector Supabase nesta página ainda não foi permitido. Clique em Tentar de novo e aprove no aviso do claude.ai.',
+      not_granted: 'Esta visualização não recebeu acesso aos conectores. Abra a página pelo claude.ai.',
+      capability_disabled: 'Esta visualização não consegue usar conectores. Abra a página pelo claude.ai.',
+      leitura: 'A página recebeu a resposta do banco, mas não conseguiu entender o formato.',
+      rede: 'Sem conexão com o Supabase. Verifique a internet e tente de novo.',
+      http_401: 'O Supabase recusou a chave pública do site.',
+      http_403: 'O banco não liberou a leitura destes dados para o site.',
+      cofre_privado: 'O Cofre não fica aberto no site público, para proteger as credenciais. Consulte pelo link do CicloDev no claude.ai.'
+    }[c] || 'Não foi possível ler o banco agora.';
+    var det = 'Código: ' + opEsc(c) + (OP_ERRO.message ? ' · ' + opEsc(String(OP_ERRO.message).slice(0, 300)) : '');
+    return '<div class="card op-erro" role="alert"><div><p>' + msg + '</p><p class="op-aviso">' + det + '</p></div><button class="btn" type="button" data-sb="ler">Tentar de novo</button></div>';
+  }
+}
+
+var TELAS = {
+  inicio: function () {
+    var at = OP ? OP.projetos.filter(function (p) { return p.fase === 'producao'; }).length : null;
+    var bk = OP ? OP.projetos.filter(function (p) { return p.fase === 'backlog'; }).length : null;
+    var tot = OP ? OP.custos.reduce(function (s, c) { return s + Number(c.valor); }, 0) : null;
+    function n(v, um, varios) { return v == null ? '…' : v + ' ' + (v === 1 ? um : varios); }
+    var cx = [['ativo', 'play', 'Ativo', n(at, 'projeto em produção', 'projetos em produção')], ['backlog', 'archive', 'Backlog', n(bk, 'projeto na esteira', 'projetos na esteira')], ['custos', 'tag', 'Custos', tot == null ? '…' : opDinheiro(tot) + ' lançados']];
+    return opCab([['Operações']], 'Operações', 'Projetos do CicloDev. Escolha uma caixa.') +
+      '<div class="op-grade">' + cx.map(function (c) {
+        return '<button class="card op-caixa" type="button" data-op="' + c[0] + '"><span class="op-ico">' + opIc(c[1]) + '</span><h2>' + c[2] + '</h2><p>' + c[3] + '</p><span class="op-ir">Abrir ' + opIc('arrow-right') + '</span></button>';
+      }).join('') + '</div>';
+  },
+  ativo: function () {
+    var lista = OP ? OP.projetos.filter(function (p) { return p.fase === 'producao'; }) : [];
+    return opCab([['Operações', 'inicio'], ['Ativo']], 'Ativo', 'Projetos em produção. Escolha um projeto para ver as fases.') +
+      (!OP ? '' : !lista.length ? opVazio('play', 'Nenhum projeto em produção ainda', 'Quando um projeto da tabela "projetos" estiver com a fase "producao", ele aparece aqui.') :
+      '<div class="op-grade">' + lista.map(function (p) {
+        var n = OP.frentes.filter(function (f) { return f.projeto_id === p.id; }).length;
+        return '<button class="card op-caixa" type="button" data-op="projeto" data-id="' + opEsc(p.id) + '"><span class="op-id">' + opIdCurto(p.id) + '</span><h2>' + opEsc(p.nome) + '</h2><p>' + opEsc(p.descricao || 'Sem descrição.') + '</p><span class="op-ir">' + n + (n === 1 ? ' frente ' : ' frentes ') + opIc('arrow-right') + '</span></button>';
+      }).join('') + '</div>');
+  },
+  projeto: function (id) {
+    var p = opProjeto(id);
+    if (!p) return opCab([['Operações', 'inicio'], ['Ativo', 'ativo'], ['Projeto']], 'Projeto') + (OP ? opVazio('circle-alert', 'Projeto não encontrado', 'Ele pode ter saído da fase "producao" ou sido apagado no banco.') : '');
+    var fr = OP.frentes.filter(function (f) { return f.projeto_id === id; });
+    var cols = ETAPAS.map(function (e) { return fr.filter(function (f) { return f.etapa === e; }); });
+    return opCab([['Operações', 'inicio'], ['Ativo', 'ativo'], [p.nome]], p.nome) +
+      '<div class="card op-projeto"><span class="op-id" title="' + opEsc(p.id) + '">' + opIdCurto(p.id) + ' · em produção</span><h2>' + opEsc(p.nome) + '</h2><p>' + opEsc(p.descricao || 'Sem descrição.') + '</p></div>' +
+      '<div class="op-fases-rolar"><table class="op-fases"><caption class="op-aviso" style="caption-side:bottom;text-align:left;padding-top:8px">Fases de atuação do projeto' + (fr.length ? '' : ' · nenhuma frente de trabalho cadastrada') + '</caption><thead><tr>' +
+      ETAPAS.map(function (e, i) { return '<th scope="col">' + e + '<b>' + cols[i].length + '</b></th>'; }).join('') + '</tr></thead><tbody><tr>' +
+      cols.map(function (c) {
+        return '<td>' + (c.length ? '<ul>' + c.map(function (f) { return '<li><b>' + opEsc(f.tipo) + '</b>' + (f.descricao ? '<span>' + opEsc(f.descricao) + '</span>' : '') + '</li>'; }).join('') + '</ul>' : '<span class="op-nada">Nada nesta fase</span>') + '</td>';
+      }).join('') + '</tr></tbody></table></div>';
+  },
+  backlog: function () {
+    var lista = OP ? OP.projetos.filter(function (p) { return p.fase === 'backlog'; }) : [];
+    return opCab([['Operações', 'inicio'], ['Backlog']], 'Backlog', 'Projetos na esteira, ainda não iniciados.') +
+      (!OP ? '' : !lista.length ? opVazio('archive', 'Nenhum projeto no backlog ainda', 'Quando um projeto da tabela "projetos" estiver com a fase "backlog", ele aparece aqui.') :
+      '<div class="op-grade">' + lista.map(function (p) {
+        return '<article class="card op-backlog"><span class="op-id" title="' + opEsc(p.id) + '">' + opIdCurto(p.id) + '</span><h2>' + opEsc(p.nome) + '</h2><p>' + opEsc(p.descricao || 'Sem descrição.') + '</p></article>';
+      }).join('') + '</div>');
+  },
+  custos: function () {
+    var porProj = OP ? OP.projetos.map(function (p) { return { p: p, c: OP.custos.filter(function (c) { return c.projeto_id === p.id; }) }; }).filter(function (x) { return x.c.length; }) : [];
+    return opCab([['Operações', 'inicio'], ['Custos']], 'Custos', 'Custos lançados, uma caixa por projeto, identificada pelo ID.') +
+      (!OP ? '' : !porProj.length ? opVazio('tag', 'Nenhum custo lançado ainda', 'Os lançamentos da tabela "custos" aparecem aqui, agrupados pelo projeto.') :
+      '<div class="op-grade">' + porProj.map(function (x) {
+        var tot = x.c.reduce(function (s, c) { return s + Number(c.valor); }, 0);
+        return '<article class="card op-custo"><span class="op-id" title="' + opEsc(x.p.id) + '">' + opIdCurto(x.p.id) + '</span><h2>' + opEsc(x.p.nome) + '</h2><ul>' +
+          x.c.map(function (c) { return '<li>' + opEsc(c.descricao) + '<b>' + opDinheiro(c.valor) + '</b><span>' + opData(c.data_custo) + '</span></li>'; }).join('') +
+          '</ul><div class="op-total"><span class="op-aviso">Total</span><span class="op-num">' + opDinheiro(tot) + '</span></div></article>';
+      }).join('') + '</div>');
+  }
+};
+
+function desenhar(focar) {
+  var area = document.getElementById('area');
+  if (MODULO !== 'Operações') return;   // outro módulo aberto
+  area.innerHTML = '<div class="op">' + TELAS[OP_TELA[0]](OP_TELA[1]) + opStatus() + '</div>';
+  if (focar) { var h = area.querySelector('h1'); if (h) { h.tabIndex = -1; h.focus({ preventScroll: true }); } window.scrollTo(0, 0); }
+}
+function abrirTela(nome, id) { OP_TELA = [nome, id]; desenhar(true); }
+function abrirModulo(nome) {
+  MODULO = nome;
+  if (nome === 'Operações') { abrirTela('inicio'); if (OP_ESTADO === 'parado') sbLer(); return; }
+  if (nome === 'Cofre') { cfAbrir('clientes'); if (CF_ESTADO === 'parado') cfLer(false); return; }
+  document.getElementById('area').innerHTML = '';
+}
+document.addEventListener('click', function (e) {
+  if (MODULO !== 'Operações') return;
+  var area = document.getElementById('area');
+  var s = e.target.closest('[data-sb]'); if (s && area.contains(s)) return sbLer();
+  var b = e.target.closest('[data-op]'); if (!b || !area.contains(b)) return;
+  abrirTela(b.dataset.op, b.dataset.id);
+});
+
+// ===== Cofre: credenciais e chaves por cliente, lidas da tabela "cofre" =====
+// O SEGREDO NUNCA É LIDO: a consulta não toca no Vault (vault.secrets) nem chama cofre_ler_segredo.
+// Só metadados: cliente (customers: tipo PF/PJ e bl_id), tipo, sistema, usuário, URL, validade e observação.
+var CF = null, CF_ESTADO = 'parado', CF_ERRO = null, CF_LIDO_EM = null, CF_TELA = ['clientes'];
+var CF_PREVIA = window.CF_PREVIA || null;   // só na página de prévia: dados fictícios no lugar do banco
+
+// No site público o Cofre NÃO lê o banco: credenciais só pelo link do claude.ai (com o conector de quem vê)
+function cfLer() { CF = null; CF_ESTADO = 'erro'; CF_ERRO = { code: 'cofre_privado' }; cfDesenhar(); }
+
+// validade: vencido, vence em até 30 dias, ou ok
+function cfHoje() { var d = new Date(); d.setHours(0, 0, 0, 0); return d; }
+function cfDias(validade) {
+  if (!validade) return null;
+  var p = String(validade).slice(0, 10).split('-'), d = new Date(+p[0], +p[1] - 1, +p[2]);
+  return Math.round((d - cfHoje()) / 86400000);
+}
+function cfSituacao(it) {
+  var n = cfDias(it.validade);
+  if (n == null) return { nivel: 0, txt: 'Sem validade' };
+  if (n < 0) return { nivel: 2, txt: 'Vencido em ' + opData(it.validade) };
+  if (n === 0) return { nivel: 2, txt: 'Vence hoje' };
+  if (n <= 30) return { nivel: 1, txt: 'Vence em ' + n + (n === 1 ? ' dia' : ' dias') + ' (' + opData(it.validade) + ')' };
+  return { nivel: 0, txt: 'Válido até ' + opData(it.validade) };
+}
+function cfNomeCliente(c) { return (c.tipo || '') + ' · BL ' + c.bl_id; }
+function cfCliente(id) { return (CF ? CF.clientes : []).filter(function (c) { return c.id === id; })[0]; }
+function cfTipo(t) { return t === 'chave_acesso' ? 'Chave de acesso' : 'Credencial'; }
+
+function cfStatus() {
+  if (CF_ESTADO === 'carregando') return '<p class="op-aviso" role="status">Lendo o cofre no banco Supabase…</p>';
+  if (CF_ESTADO === 'erro') { var guarda = OP_ERRO; OP_ERRO = CF_ERRO; var s = opStatusErro(); OP_ERRO = guarda; s = s.replace('data-sb="ler"', 'data-cf="ler"'); return CF_ERRO.code === 'cofre_privado' ? s.replace(/<button[^>]*data-cf="ler"[^>]*>[^<]*<\/button>/, '') : s; }
+  if (CF_ESTADO === 'ok') return '<div class="op-status"><span class="op-aviso">' + (CF_PREVIA ? 'Prévia com dados fictícios' : 'Dados do banco Supabase') + ' · lidos às ' + new Date(CF_LIDO_EM).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) + ' · o segredo nunca é lido pela página</span><button class="btn btn-2 op-atualizar" type="button" data-cf="atualizar">' + opIc('refresh-cw') + 'Atualizar</button></div>';
+  return '';
+}
+
+var CF_TELAS = {
+  clientes: function () {
+    var grupos = CF ? CF.clientes.map(function (c) { return { c: c, it: CF.itens.filter(function (i) { return i.customer_id === c.id; }) }; }).filter(function (g) { return g.it.length; }) : [];
+    return opCab([['Cofre']], 'Cofre', 'Credenciais e chaves de acesso, agrupadas por cliente. Escolha um cliente.', 'data-cf') +
+      (!CF ? '' : !grupos.length ? opVazio('lock', 'Nenhum item no cofre ainda', 'Quando uma credencial ou chave for guardada no cofre, o cliente dela aparece aqui.') :
+      '<div class="op-grade">' + grupos.map(function (g) {
+        var atencao = g.it.filter(function (i) { return cfSituacao(i).nivel > 0; }).length;
+        return '<button class="card op-caixa" type="button" data-cf="itens" data-id="' + opEsc(g.c.id) + '"><span class="op-id">Cliente ' + opEsc(g.c.tipo) + '</span><h2>BL ' + opEsc(g.c.bl_id) + '</h2>' +
+          '<p>' + g.it.length + (g.it.length === 1 ? ' item guardado' : ' itens guardados') + '</p>' +
+          (atencao ? '<span class="cf-alerta">' + opIc('triangle-alert') + atencao + (atencao === 1 ? ' precisa de atenção' : ' precisam de atenção') + '</span>' : '') +
+          '<span class="op-ir">Abrir ' + opIc('arrow-right') + '</span></button>';
+      }).join('') + '</div>');
+  },
+  itens: function (id) {
+    var c = cfCliente(id);
+    if (!c) return opCab([['Cofre', 'clientes'], ['Cliente']], 'Cliente', '', 'data-cf') + (CF ? opVazio('circle-alert', 'Cliente não encontrado', 'Ele pode ter sido removido do banco.') : '');
+    var itens = CF.itens.filter(function (i) { return i.customer_id === id; })
+      .sort(function (a, b) { return cfSituacao(b).nivel - cfSituacao(a).nivel; });
+    return opCab([['Cofre', 'clientes'], [cfNomeCliente(c)]], 'BL ' + c.bl_id, 'Cliente ' + opEsc(c.tipo) + ' · ' + itens.length + (itens.length === 1 ? ' item no cofre' : ' itens no cofre'), 'data-cf') +
+      (!itens.length ? opVazio('lock', 'Nenhum item para este cliente', 'Os itens guardados no cofre para este cliente aparecem aqui.') :
+      '<div class="op-grade cf-grade">' + itens.map(function (i) {
+        var s = cfSituacao(i);
+        return '<article class="card cf-item' + (s.nivel === 2 ? ' cf-vencido' : '') + '">' +
+          '<div class="cf-item-topo"><span class="cf-tipo">' + opIc(i.tipo === 'chave_acesso' ? 'tag' : 'user') + cfTipo(i.tipo) + '</span>' +
+          '<span class="cf-validade cf-n' + s.nivel + '">' + (s.nivel ? opIc(s.nivel === 2 ? 'circle-alert' : 'clock') : '') + s.txt + '</span></div>' +
+          '<h2>' + opEsc(i.sistema) + '</h2><dl class="cf-dados">' +
+          (i.usuario ? '<dt>Usuário</dt><dd>' + opEsc(i.usuario) + '</dd>' : '') +
+          (i.url ? '<dt>Endereço</dt><dd><a class="lnk-texto" href="' + opEsc(i.url) + '" target="_blank" rel="noopener noreferrer">' + opEsc(i.url.replace(/^https?:\/\//, '')) + '</a></dd>' : '') +
+          '<dt>' + (i.tipo === 'chave_acesso' ? 'Chave' : 'Senha') + '</dt><dd class="cf-segredo">' + opIc('lock') + '<span aria-label="Segredo oculto">••••••••</span><small>guardado no Vault</small></dd>' +
+          (i.observacao ? '<dt>Observação</dt><dd>' + opEsc(i.observacao) + '</dd>' : '') +
+          '</dl><span class="op-id" title="' + opEsc(i.id) + '">' + opIdCurto(i.id) + '</span></article>';
+      }).join('') + '</div>');
+  }
+};
+
+function cfDesenhar(focar) {
+  if (MODULO !== 'Cofre') return;
+  var area = document.getElementById('area');
+  area.innerHTML = '<div class="op">' + CF_TELAS[CF_TELA[0]](CF_TELA[1]) + cfStatus() + '</div>';
+  if (focar) { var h = area.querySelector('h1'); if (h) { h.tabIndex = -1; h.focus({ preventScroll: true }); } window.scrollTo(0, 0); }
+}
+function cfAbrir(nome, id) { CF_TELA = [nome, id]; cfDesenhar(true); }
+document.addEventListener('click', function (e) {
+  if (MODULO !== 'Cofre') return;
+  var area = document.getElementById('area');
+  var b = e.target.closest('[data-cf]'); if (!b || !area.contains(b)) return;
+  if (b.dataset.cf === 'ler' || b.dataset.cf === 'atualizar') return cfLer(b.dataset.cf === 'atualizar');
+  cfAbrir(b.dataset.cf, b.dataset.id);
+});
+</script>
+</body>
+</html>
